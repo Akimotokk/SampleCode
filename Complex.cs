@@ -13,7 +13,8 @@ namespace dsp2
 		}
 		public Complex()
 		{
-
+            re = 0;
+            im = 0;
 		}
         //Complex Addition
 		public static Complex operator+(Complex c1, Complex c2)
@@ -50,7 +51,7 @@ namespace dsp2
 
         public double abs()
 		{
-			return Math.Pow ((Math.Pow (this.re, 2) + Math.Pow (this.im, 2)), -2);
+			return Math.Pow ((Math.Pow (this.re, 2) + Math.Pow (this.im, 2)), 1/2);
 		}
 
 

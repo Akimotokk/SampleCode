@@ -5,8 +5,10 @@ namespace dsp2
 	public class Fft
 	{
 		private List<Complex> value;
+        private int length;
 		private Fft (List<Complex> target)
 		{
+            length = target.Count;
             value = new List<Complex>(target);
 		}
         //Do FFT : IFFT,true:false
