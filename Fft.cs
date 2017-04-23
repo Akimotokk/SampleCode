@@ -5,14 +5,16 @@ namespace dsp2
 	public class Fft
 	{
 		private List<Complex> value;
-        private int length;
 		private Fft (List<Complex> target)
 		{
-            length = target.Count;
             value = new List<Complex>(target);
 		}
+		private Fft ()
+		{
+			value = new List<Complex> ();
+		}
         //Do FFT : IFFT,true:false
-		public static List<Complex> fft(List<Complex> target,int dftpoint,Boolean mode)
+		public static List<Complex> Fft_Ifft(List<Complex> target,int dftpoint,Boolean mode)
 		{
             Fft result = new Fft(target);
 			int[] bit = new int[dftpoint];
@@ -22,6 +24,36 @@ namespace dsp2
 			wnk = twiddleFactor(dftpoint,mode);
 			result.butterfly(wnk, dftpoint, mode);
             return result.value;
+		}
+		//For WaveFile
+		public static List<Complex> Fft_Ifft(List<short> target,int dftpoint,Boolean mode)
+		{
+			Fft result = new Fft();
+			result.toComplex (target);
+			int[] bit = new int[dftpoint];
+			List<Complex> wnk = new List<Complex> ();
+			bit = bitReverse(dftpoint);
+			result.data_replacement(bit,dftpoint);
+			wnk = twiddleFactor(dftpoint,mode);
+			result.butterfly(wnk, dftpoint, mode);
+			return result.value;
+		}
+
+		private void toComplex(List<short> target)
+		{
+			foreach (short i in target) 
+			{
+				value.Add (new Complex ((double)i,0));	
+			}
+		}
+		public static List<short> ToShort(List<Complex> target)
+		{
+			List<short> result = new List<short>();
+			foreach (Complex i in target) 
+			{
+				result.Add ((short)i.re);
+			}
+			return result;
 		}
 		private void data_replacement(int[] bit,int n)
 		{
