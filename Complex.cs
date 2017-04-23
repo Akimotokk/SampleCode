@@ -51,7 +51,7 @@ namespace dsp2
 
         public double abs()
 		{
-			return Math.Pow ((Math.Pow (this.re, 2) + Math.Pow (this.im, 2)), 1/2);
+			return Math.Sqrt((Math.Pow (this.re, 2) + Math.Pow (this.im, 2)));
 		}
 
 
